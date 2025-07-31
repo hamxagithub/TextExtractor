@@ -1,4 +1,4 @@
-import RNFS from 'react-native-fs';
+import * as RNFS from 'react-native-fs';
 import {ExtractedContent, ExtractedImage, ExtractedTable} from '../types';
 import { generateId } from '../utils/helpers';
 

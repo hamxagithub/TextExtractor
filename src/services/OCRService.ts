@@ -1,5 +1,5 @@
 import {NativeModules} from 'react-native';
-import RNFS from 'react-native-fs';
+import * as RNFS from 'react-native-fs';
 
 // Note: This service would typically use libraries like:
 // - react-native-text-detector

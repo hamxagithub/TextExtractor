@@ -10,11 +10,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useFileContext} from '../context/FileContext';
+
 import {useTheme} from '../context/ThemeContext';
 import {SearchService, SearchOptions, AdvancedSearchCriteria} from '../services/SearchService';
 import {SearchResult} from '../types';
 import {debounce, highlightText} from '../utils/helpers';
+import { useFileContext } from '../context/FileContext';
 
 const SearchScreen = ({navigation}: any) => {
   const {state, setSearchResults} = useFileContext();
