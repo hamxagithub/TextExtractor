@@ -64,6 +64,7 @@ export class FileProcessingService {
         compressImageQuality: 0.8,
       });
       return Array.isArray(images) ? images : [images];
+  
     } catch (error) {
       return [];
     }

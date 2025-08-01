@@ -33,33 +33,27 @@ type TabParamList = {
 const Tab = createBottomTabNavigator<TabParamList>();
 const Stack = createStackNavigator();
 
-function MainTabs() {
+function MainTabs(): React.ReactElement {
   return (
     <Tab.Navigator
-      screenOptions={({route}: {route: {name: keyof TabParamList}}) => ({
-        tabBarIcon: ({focused, color, size}: {focused: boolean; color: string; size: number}) => {
-          let iconName: string;
-
-          if (route.name === 'Home') {
-            iconName = 'home';
-          } else if (route.name === 'Upload') {
-            iconName = 'cloud-upload';
-          } else if (route.name === 'Content') {
-            iconName = 'description';
-          } else if (route.name === 'Timeline') {
-            iconName = 'timeline';
-          } else if (route.name === 'Search') {
-            iconName = 'search';
-          } else {
-            iconName = 'help';
-          }
-
-          return <Icon name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: '#2196F3',
-        tabBarInactiveTintColor: 'gray',
-        headerShown: false,
-      })}>
+      screenOptions={({route}: {route: {name: keyof TabParamList}}) => {
+        const iconName =
+          route.name === 'Home' ? 'home'
+          : route.name === 'Upload' ? 'cloud-upload'
+          : route.name === 'Content' ? 'description'
+          : route.name === 'Timeline' ? 'timeline'
+          : route.name === 'Search' ? 'search'
+          : 'help';
+        return {
+          tabBarIcon: ({focused, color, size}: {focused: boolean; color: string; size: number}) => (
+            <Icon name={iconName} size={size} color={color} />
+          ),
+          tabBarActiveTintColor: '#2196F3',
+          tabBarInactiveTintColor: 'gray',
+          headerShown: false,
+        };
+      }}
+    >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Upload" component={FileUploadScreen} />
       <Tab.Screen name="Content" component={ExtractedContentScreen} />
@@ -73,8 +67,8 @@ function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <ThemeProvider>
-      <FileProvider>
+    <ThemeProvider >
+      <FileProvider >
         <NavigationContainer>
           <StatusBar
             barStyle={isDarkMode ? 'light-content' : 'dark-content'}
