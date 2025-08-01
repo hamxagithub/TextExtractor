@@ -5,13 +5,12 @@
 
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator, BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // Import screens
-
 
 // Import providers
 import {FileProvider} from './src/context/FileContext';
@@ -23,15 +22,23 @@ import TimelineScreen from './src/screens/TimelineScreen';
 import SearchScreen from './src/screens/SearchScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
-const Tab = createBottomTabNavigator();
+type TabParamList = {
+  Home: undefined;
+  Upload: undefined;
+  Content: undefined;
+  Timeline: undefined;
+  Search: undefined;
+};
+
+const Tab = createBottomTabNavigator<TabParamList>();
 const Stack = createStackNavigator();
 
 function MainTabs() {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
-          let iconName;
+      screenOptions={({route}: {route: {name: keyof TabParamList}}) => ({
+        tabBarIcon: ({focused, color, size}: {focused: boolean; color: string; size: number}) => {
+          let iconName: string;
 
           if (route.name === 'Home') {
             iconName = 'home';
@@ -43,9 +50,11 @@ function MainTabs() {
             iconName = 'timeline';
           } else if (route.name === 'Search') {
             iconName = 'search';
+          } else {
+            iconName = 'help';
           }
 
-          return <Icon name={iconName ?? 'help'} size={size} color={color} />;
+          return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#2196F3',
         tabBarInactiveTintColor: 'gray',
